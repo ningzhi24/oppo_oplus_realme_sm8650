@@ -159,16 +159,16 @@ jobs:
           mv "android_kernel_common_oneplus_sm8650-oneplus-sm8650_v_15.0.0_oneplus12_6.1.118" common
           rm -rf common.zip
           echo "正在修改内核配置解除95摄氏度限制"
-          cd common
+          cd kernel_workspace
           # 启用 user_space governor
-          sed -i 's/CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=n/CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=y/' arch/arm64/configs/gki_defconfig
-          sed -i 's/CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=y/CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=n/' arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=n" >> ./common/arch/arm64/configs/gki_defconfig
           # 禁用 thermal netlink
-          sed -i 's/CONFIG_THERMAL_NETLINK=y/CONFIG_THERMAL_NETLINK=n/' arch/arm64/configs/gki_defconfig
-          sed -i 's/CONFIG_THERMAL_GOV_STEP_WISE=y/CONFIG_THERMAL_GOV_STEP_WISE=n/' arch/arm64/configs/gki_defconfig
-          sed -i 's/CONFIG_THERMAL_GOV_POWER_ALLOCATOR=y/CONFIG_THERMAL_GOV_POWER_ALLOCATOR=n/' arch/arm64/configs/gki_defconfig
-          sed -i 's/CONFIG_THERMAL_GOV_BANG_BANG=y/CONFIG_THERMAL_GOV_BANG_BANG=n/' arch/arm64/configs/gki_defconfig
-          sed -i 's/CONFIG_CPU_IDLE_THERMAL=y/CONFIG_CPU_IDLE_THERMAL=n/' arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_NETLINK=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_GOV_STEP_WISE=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_GOV_POWER_ALLOCATOR=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_GOV_BANG_BANG=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CPU_IDLE_THERMAL=n" >> ./common/arch/arm64/configs/gki_defconfig
           cd ..
           echo "正在克隆llvm-Clang20工具链..."
           rm -rf clang20
@@ -248,7 +248,7 @@ jobs:
             # 验证修改结果
             grep -A10 "REPO_OWNER" kernel/Makefile  # 检查插入点后的内容
             grep "KSU_VERSION_FULL" kernel/Makefile # 确认版本定义存在
-            echo "SukiSU版本号: v${KSU_API_VERSION}-${GIT_COMMIT_HASH}@cctv18"
+            echo "SukiSU版本号: v${KSU_API_VERSION}-${GIT_COMMIT_HASH}@Wu"
           else
             echo "正在配置KernelSU Next..."
             curl -LSs "https://raw.githubusercontent.com/pershoot/KernelSU-Next/next-susfs/kernel/setup.sh" | bash -s next-susfs
