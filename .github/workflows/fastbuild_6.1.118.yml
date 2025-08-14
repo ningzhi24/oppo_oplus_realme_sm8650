@@ -158,18 +158,6 @@ jobs:
           unzip -q common.zip
           mv "android_kernel_common_oneplus_sm8650-oneplus-sm8650_v_15.0.0_oneplus12_6.1.118" common
           rm -rf common.zip
-          echo "正在修改内核配置解除95摄氏度限制"
-          cd common
-          # 启用 user_space governor
-          echo "CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=y" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=n" >> ./common/arch/arm64/configs/gki_defconfig
-          # 禁用 thermal netlink
-          echo "CONFIG_THERMAL_NETLINK=n" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_THERMAL_GOV_STEP_WISE=n" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_THERMAL_GOV_POWER_ALLOCATOR=n" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_THERMAL_GOV_BANG_BANG=n" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_CPU_IDLE_THERMAL=n" >> ./common/arch/arm64/configs/gki_defconfig
-          cd ..
           echo "正在克隆llvm-Clang20工具链..."
           rm -rf clang20
           mkdir -p clang20
@@ -354,6 +342,17 @@ jobs:
             echo "CONFIG_CRYPTO_LZ4K=y" >> ./common/arch/arm64/configs/gki_defconfig
             echo "CONFIG_CRYPTO_LZ4KD=y" >> ./common/arch/arm64/configs/gki_defconfig
             echo "CONFIG_CRYPTO_842=y" >> ./common/arch/arm64/configs/gki_defconfig
+            echo "正在修改内核配置解除95摄氏度限制"
+          # 启用 user_space governor
+          echo "CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=n" >> ./common/arch/arm64/configs/gki_defconfig
+          # 禁用 thermal netlink
+          echo "CONFIG_THERMAL_NETLINK=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_GOV_STEP_WISE=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_GOV_POWER_ALLOCATOR=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_THERMAL_GOV_BANG_BANG=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_CPU_IDLE_THERMAL=n" >> ./common/arch/arm64/configs/gki_defconfig
+          cd ..
             # 以下配置未核实必要性，待测试
             #echo "CONFIG_ZRAM_WRITEBACK=y" >> ./common/arch/arm64/configs/gki_defconfig
             #sed -i 's/CONFIG_ZRAM=m/CONFIG_ZRAM=y/g' ./common/arch/arm64/configs/gki_defconfig
