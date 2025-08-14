@@ -161,15 +161,14 @@ jobs:
           echo "正在修改内核配置解除95摄氏度限制"
           cd common
           # 启用 user_space governor
-          sed -i 's/CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=n/CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=y/' arch/arm64/configs/oplus_sm8650_defconfig
-          # 禁用其他governor
-          sed -i 's/CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=y/CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=n/' arch/arm64/configs/oplus_sm8650_defconfig
+          sed -i 's/CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=n/CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=y/' arch/arm64/configs/gki_defconfig
+          sed -i 's/CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=y/CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=n/' arch/arm64/configs/gki_defconfig
           # 禁用 thermal netlink
-          sed -i 's/CONFIG_THERMAL_NETLINK=y/CONFIG_THERMAL_NETLINK=n/' arch/arm64/configs/oplus_sm8650_defconfig
-          sed -i 's/CONFIG_THERMAL_GOV_STEP_WISE=y/CONFIG_THERMAL_GOV_STEP_WISE=n/' arch/arm64/configs/oplus_sm8650_defconfig
-          sed -i 's/CONFIG_THERMAL_GOV_POWER_ALLOCATOR=y/CONFIG_THERMAL_GOV_POWER_ALLOCATOR=n/' arch/arm64/configs/oplus_sm8650_defconfig
-          sed -i 's/CONFIG_THERMAL_GOV_BANG_BANG=y/CONFIG_THERMAL_GOV_BANG_BANG=n/' arch/arm64/configs/oplus_sm8650_defconfig
-          sed -i 's/CONFIG_CPU_IDLE_THERMAL=y/CONFIG_CPU_IDLE_THERMAL=n/' arch/arm64/configs/oplus_sm8650_defconfig
+          sed -i 's/CONFIG_THERMAL_NETLINK=y/CONFIG_THERMAL_NETLINK=n/' arch/arm64/configs/gki_defconfig
+          sed -i 's/CONFIG_THERMAL_GOV_STEP_WISE=y/CONFIG_THERMAL_GOV_STEP_WISE=n/' arch/arm64/configs/gki_defconfig
+          sed -i 's/CONFIG_THERMAL_GOV_POWER_ALLOCATOR=y/CONFIG_THERMAL_GOV_POWER_ALLOCATOR=n/' arch/arm64/configs/gki_defconfig
+          sed -i 's/CONFIG_THERMAL_GOV_BANG_BANG=y/CONFIG_THERMAL_GOV_BANG_BANG=n/' arch/arm64/configs/gki_defconfig
+          sed -i 's/CONFIG_CPU_IDLE_THERMAL=y/CONFIG_CPU_IDLE_THERMAL=n/' arch/arm64/configs/gki_defconfig
           cd ..
           echo "正在克隆llvm-Clang20工具链..."
           rm -rf clang20
